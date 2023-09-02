@@ -1,4 +1,5 @@
 const express = require("express");
+// const multer = require("multer");
 const User = require("../models/user");
 const auth = require("../middleware/auth");
 const { sendWelcomeEmail, sendCancelationEmail } = require("../emails/account");
@@ -66,6 +67,26 @@ router.post("/users/logoutAll", auth, async (req, res) => {
         res.status(500).send();
     }
 });
+
+// const upload = multer({});
+
+// Upload avatar (upload profile picture)
+router.post(
+    "/users/me/avatar",
+    auth,
+    // upload.single("avatar"),
+    async (req, res) => {
+        try {
+            // req.user.avatar = req.file.buffer;
+            // await req.user.save();
+            req.user.firstName.buffer;
+            res.send();
+        } catch (e) {
+            console.log(e);
+            res.status(400).send(e);
+        }
+    }
+);
 
 // Read user (Read profile)
 router.get("/users/me", auth, async (req, res) => {

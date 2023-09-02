@@ -40,7 +40,7 @@ const userSchema = new mongoose.Schema(
                 },
             },
         ],
-        profilePicture: { type: Buffer },
+        avatar: { type: Buffer },
     },
     {
         timestamps: true,
