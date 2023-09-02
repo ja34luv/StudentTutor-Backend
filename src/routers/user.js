@@ -1,5 +1,6 @@
 const express = require("express");
-// const multer = require("multer");
+const multer = require("multer");
+const sharp = require("sharp");
 const User = require("../models/user");
 const auth = require("../middleware/auth");
 const { sendWelcomeEmail, sendCancelationEmail } = require("../emails/account");
@@ -68,23 +69,35 @@ router.post("/users/logoutAll", auth, async (req, res) => {
     }
 });
 
-// const upload = multer({});
+const upload = multer({
+    limits: {
+        fileSize: 1000000,
+    },
+    fileFilter(req, file, cb) {
+        if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+            return cb(new Error("Please upload an image"));
+        }
+
+        cb(undefined, true);
+    },
+});
 
 // Upload avatar (upload profile picture)
 router.post(
     "/users/me/avatar",
     auth,
-    // upload.single("avatar"),
+    upload.single("avatar"),
     async (req, res) => {
-        try {
-            // req.user.avatar = req.file.buffer;
-            // await req.user.save();
-            req.user.firstName.buffer;
-            res.send();
-        } catch (e) {
-            console.log(e);
-            res.status(400).send(e);
-        }
+        const buffer = await sharp(req.file.buffer)
+            .resize({ width: 250, height: 250 })
+            .png()
+            .toBuffer();
+        req.user.avatar = buffer;
+        await req.user.save();
+        res.send();
+    },
+    (error, req, res, next) => {
+        res.status(400).send({ error: error.message });
     }
 );
 
