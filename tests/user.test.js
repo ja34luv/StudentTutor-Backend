@@ -22,7 +22,7 @@ test("Should signup a new user", async () => {
             lastName: "lastName_TESTING",
             email: "ja34luv@gmail.com",
             password: "pass_word_TESTING",
-            // sex: "Male",
+            sex: "Male",
         })
         .expect(201);
 
