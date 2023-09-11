@@ -146,7 +146,7 @@ router.patch("/users/me", auth, async (req, res) => {
 });
 
 // Delete user (Delete account)
-router.delete("/users", auth, async (req, res) => {
+router.delete("/users/me", auth, async (req, res) => {
     try {
         await req.user.deleteOne();
         sendCancelationEmail(req.user.email, req.user.firstName);

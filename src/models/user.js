@@ -40,6 +40,10 @@ const userSchema = new mongoose.Schema(
                 },
             },
         ],
+        sex: {
+            type: String,
+            trim: true,
+        },
         avatar: { type: Buffer },
     },
     {
@@ -47,6 +51,7 @@ const userSchema = new mongoose.Schema(
     }
 );
 
+// whenever JSON is returned to res, hide passwrod, tokens and avatar from being sent to the user
 userSchema.methods.toJSON = function () {
     const user = this;
     const userObject = user.toObject();
