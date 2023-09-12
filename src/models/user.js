@@ -51,6 +51,12 @@ const userSchema = new mongoose.Schema(
     }
 );
 
+userSchema.virtual("tutorProfiles", {
+    ref: "TutorProfile",
+    localField: "_id",
+    foreignField: "owner",
+});
+
 // whenever JSON is returned to res, hide passwrod, tokens and avatar from being sent to the user
 userSchema.methods.toJSON = function () {
     const user = this;
