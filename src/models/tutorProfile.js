@@ -43,7 +43,27 @@ const tutorProfileSchema = new mongoose.Schema(
                     return true; // Validation passes if either condition is met for each experience
                 },
                 message:
-                    "Either endDateMonth and endDateYear should be filled out, or currentlyWorking should be filled out for each experience, but not both.",
+                    "Please provide either an end date or indicate that you are currently working.",
+            },
+        },
+        education: {
+            type: [
+                {
+                    school: { type: String, required: true },
+                    degree: { type: String },
+                    major: { type: String, required: true },
+                    startDateMonth: { type: String, required: true },
+                    startDateYear: { type: Number, required: true },
+                    endDateMonth: { type: String, required: true },
+                    endDateYear: { type: Number, required: true },
+                    gpa: { type: Number },
+                },
+            ],
+            validate: {
+                validator: function (education) {
+                    if (!education.length > 0)
+                        throw new Error("Education information is needed.");
+                },
             },
         },
     },
@@ -51,22 +71,6 @@ const tutorProfileSchema = new mongoose.Schema(
         timestamps: true,
     }
 );
-
-// // Custom validation function to check endDateMonth/endDateYear and currentlyWorking
-// tutorProfileSchema.path("experiences").validate(function (experiences) {
-//     for (const experience of experiences) {
-//         const hasEndDate = experience.endDateYear && experience.endDateMonth;
-//         const isCurrentlyWorking = experience.currentlyWorking;
-
-//         if (
-//             (hasEndDate && isCurrentlyWorking) ||
-//             (!hasEndDate && !isCurrentlyWorking)
-//         ) {
-//             return false; // Validation fails if both conditions are met
-//         }
-//     }
-//     return true; // Validation passes if either condition is met for each experience
-// }, "Either endDateMonth and endDateYear should be filled out, or currentlyWorking should be filled out for each experience, but not both.");
 
 const TutorProfile = mongoose.model("TutorProfile", tutorProfileSchema);
 
