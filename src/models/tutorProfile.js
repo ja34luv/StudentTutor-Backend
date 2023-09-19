@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const validator = require("validator");
 
 const tutorProfileSchema = new mongoose.Schema(
     {
@@ -15,14 +14,26 @@ const tutorProfileSchema = new mongoose.Schema(
             type: [
                 {
                     title: { type: String, required: true, trim: true },
-                    employmentType: { type: String }, //enum
+                    employmentType: {
+                        type: String,
+                        enum: [
+                            "Full-Time",
+                            "Part-Time",
+                            "Contract",
+                            "Freelance",
+                            "Internship",
+                            "Co-op (Cooperative Education)",
+                            "Volunteer",
+                            "Self-Employed",
+                        ],
+                    },
                     companyName: { type: String, required: true, trim: true },
                     location: { type: String, trim: true },
-                    locationType: { type: String }, //enum
-                    startDateMonth: {
+                    locationType: {
                         type: String,
-                        required: true,
+                        enum: ["On-Site", "Remote", "Hybrid"],
                     },
+                    startDateMonth: { type: String, required: true },
                     startDateYear: { type: Number, required: true },
                     endDateMonth: { type: String },
                     endDateYear: { type: Number },
@@ -31,19 +42,20 @@ const tutorProfileSchema = new mongoose.Schema(
             ],
             validate: {
                 validator: function (experiences) {
+                    // disable endDateMonth/endDateYear & currentlyWorking insertion at the same time.
                     for (const experience of experiences) {
                         const hasEndDate =
-                            experience.endDateYear && experience.endDateMonth;
+                            experience.endDateYear || experience.endDateMonth;
                         const isCurrentlyWorking = experience.currentlyWorking;
 
                         if (
                             (hasEndDate && isCurrentlyWorking) ||
                             (!hasEndDate && !isCurrentlyWorking)
                         ) {
-                            return false; // Validation fails if both conditions are met
+                            return false;
                         }
                     }
-                    return true; // Validation passes if either condition is met for each experience
+                    return true;
                 },
                 message:
                     "Please provide either an end date or indicate that you are currently working.",
@@ -64,6 +76,7 @@ const tutorProfileSchema = new mongoose.Schema(
             ],
             validate: {
                 validator: function (education) {
+                    // education information must be provided (at least one)
                     if (!education.length > 0)
                         throw new Error(
                             "Please provide an education information."
@@ -82,11 +95,22 @@ const tutorProfileSchema = new mongoose.Schema(
             type: [
                 {
                     language: { type: String, required: true, trim: true },
-                    proficiency: { type: String },
+                    proficiency: {
+                        type: String,
+                        enum: [
+                            "Native Speaker",
+                            "Fluent",
+                            "Advanced",
+                            "Intermediate",
+                            "Basic",
+                            "Beginner",
+                        ],
+                    },
                 },
             ],
             validate: {
                 validator: function (languages) {
+                    // language information must be provided (at least one)
                     if (!languages.length > 0)
                         throw new Error(
                             "Please provide a language information."
@@ -100,14 +124,31 @@ const tutorProfileSchema = new mongoose.Schema(
             trim: true,
         },
         avatar: { type: Buffer },
-        sex: { type: String, required: true, trim: true }, //enum
-        lessonMethod: { type: String, required: true }, //enum
+        sex: {
+            type: String,
+            required: true,
+            trim: true,
+            enum: ["Male", "Female", "Other"],
+        },
+        lessonMethod: {
+            type: String,
+            required: true,
+            enum: ["Remote", "In-Person", "Hybrid"],
+        },
         lessonLocation: {
             type: String,
             trim: true,
             required: function () {
-                // Use a function to conditionally set the 'required' property based on lessonMethod
-                return this.lessonMethod !== "remote";
+                return this.lessonMethod !== "Remote";
+            },
+            validate: {
+                validator: function (lessonLocation) {
+                    // Ignore lessonLocation when lessonMethod is "Remote"
+                    if (this.lessonMethod === "Remote" && lessonLocation) {
+                        this.lessonLocation = undefined;
+                    }
+                    return true; // Validation always passes
+                },
             },
         },
         aboutMe: {
@@ -118,7 +159,7 @@ const tutorProfileSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        subjectsOffered: {
+        subjects: {
             type: [
                 {
                     subject: { type: String, trim: true, required: true },
@@ -138,4 +179,4 @@ module.exports = TutorProfile;
 
 // notes
 // for lessonMethod & lessonLocation => if lessonMethod is remote, lessonLocation input is disabled from frontend
-//endDateMonth/endDateYear & currentlyWorking => if currentlyWorking is on disable endDateMonth/endDateYear input from frontend
+// endDateMonth/endDateYear & currentlyWorking => if currentlyWorking is on disable endDateMonth/endDateYear input from frontend
