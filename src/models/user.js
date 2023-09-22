@@ -45,6 +45,7 @@ const userSchema = new mongoose.Schema(
             trim: true,
         },
         avatar: { type: Buffer },
+        // verified (student verified)
     },
     {
         timestamps: true,

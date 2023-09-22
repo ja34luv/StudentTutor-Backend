@@ -45,12 +45,17 @@ const tutorProfileSchema = new mongoose.Schema(
                     // disable endDateMonth/endDateYear & currentlyWorking insertion at the same time.
                     for (const experience of experiences) {
                         const hasEndDate =
-                            experience.endDateYear || experience.endDateMonth;
+                            experience.endDateYear && experience.endDateMonth;
+                        const hasPartialEndDate =
+                            (experience.endDateYear ||
+                                experience.endDateMonth) &&
+                            !hasEndDate;
                         const isCurrentlyWorking = experience.currentlyWorking;
 
                         if (
                             (hasEndDate && isCurrentlyWorking) ||
-                            (!hasEndDate && !isCurrentlyWorking)
+                            (!hasEndDate && !isCurrentlyWorking) ||
+                            (hasPartialEndDate && isCurrentlyWorking)
                         ) {
                             return false;
                         }
