@@ -37,7 +37,7 @@ router.post("/tutorProfiles", auth, async (req, res) => {
     }
 });
 
-// Read user tutorProfiles (Get my tutor profiles)
+// Read user's tutorProfiles (Get my tutor profiles)
 //GET /tutorProfiles/me?sortBy=createdAt:desc (or asc)
 router.get("/tutorProfiles/me", auth, async (req, res) => {
     const sort = {};
@@ -59,5 +59,8 @@ router.get("/tutorProfiles/me", auth, async (req, res) => {
         res.status(500).send(e);
     }
 });
+
+// Read tutorProfiles (General search)
+router.get("/tutorProfiles", async (req, res) => {});
 
 module.exports = router;
