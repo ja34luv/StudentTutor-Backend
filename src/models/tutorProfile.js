@@ -69,14 +69,22 @@ const tutorProfileSchema = new mongoose.Schema(
         education: {
             type: [
                 {
-                    school: { type: String, required: true, trim: true },
+                    school: {
+                        type: String,
+                        required: true,
+                        trim: true,
+                        enum: [
+                            "Simon Fraser University",
+                            "University of British Columbia",
+                        ],
+                    },
                     degree: { type: String, trim: true },
                     major: { type: String, required: true, trim: true },
                     startDateMonth: { type: String, required: true },
                     startDateYear: { type: Number, required: true },
                     endDateMonth: { type: String, required: true },
                     endDateYear: { type: Number, required: true },
-                    gpa: { type: Number, trim: true },
+                    gpa: { type: String, trim: true },
                 },
             ],
             validate: {
@@ -99,7 +107,49 @@ const tutorProfileSchema = new mongoose.Schema(
         languages: {
             type: [
                 {
-                    language: { type: String, required: true, trim: true },
+                    language: {
+                        type: String,
+                        required: true,
+                        trim: true,
+                        enum: [
+                            "English",
+                            "French",
+                            "Cantonese",
+                            "Mandarin",
+                            "Hindustani",
+                            "Spanish",
+                            "Punjabi",
+                            "Arabic",
+                            "Tagalog",
+                            "Italian",
+                            "German",
+                            "Portuguese",
+                            "Persian",
+                            "Russian",
+                            "Tamil",
+                            "Vietnamese",
+                            "Gujarati",
+                            "Polish",
+                            "Korean",
+                            "Serbo-Croatian",
+                            "Greek",
+                            "Haitian Creole",
+                            "Ukrainian",
+                            "Bengali",
+                            "Romanian",
+                            "Dutch",
+                            "Cree",
+                            "Japanese",
+                            "Hebrew",
+                            "Turkish",
+                            "Malayalam",
+                            "Hungarian",
+                            "Ilocano",
+                            "Somali",
+                            "Swahili",
+                            "Telugu",
+                        ],
+                    },
                     proficiency: {
                         type: String,
                         enum: [
@@ -171,6 +221,15 @@ const tutorProfileSchema = new mongoose.Schema(
                     teachingLevels: { type: String, trim: true },
                 },
             ],
+            validate: {
+                validator: function (subjects) {
+                    // subject information must be provided (at least one)
+                    if (!subjects.length > 0)
+                        throw new Error(
+                            "Please provide a subject information."
+                        );
+                },
+            },
         },
     },
     {
