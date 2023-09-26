@@ -239,6 +239,17 @@ const tutorProfileSchema = new mongoose.Schema(
 
 const TutorProfile = mongoose.model("TutorProfile", tutorProfileSchema);
 
+// tutorProfileSchema.index({ headline: "text" });
+// tutorProfileSchema.index({ "experiences.title": "text" });
+// tutorProfileSchema.index({ "education.major": "text" });
+// tutorProfileSchema.index({ "skills.skill": "text" });
+// tutorProfileSchema.index({ aboutMe: "text" });
+// tutorProfileSchema.index({ aboutLesson: "text" });
+// tutorProfileSchema.index({ "subjects.subject": "text" });
+
+// tutorProfileSchema.index({ "$**": "text" });
+// TutorProfile.createIndexes();
+
 module.exports = TutorProfile;
 
 // notes

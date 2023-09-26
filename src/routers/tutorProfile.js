@@ -36,13 +36,23 @@ router.post("/tutorProfiles", auth, async (req, res) => {
     }
 });
 
+function decodeQueryParam(req, paramName) {
+    if (req.query[paramName]) {
+        return decodeURIComponent(req.query[paramName]);
+    }
+
+    return null;
+}
+
 // Read user's tutorProfiles (Get my tutor profiles)
 //GET /tutorProfiles/me?sortBy=createdAt:desc (or asc)
 router.get("/tutorProfiles/me", auth, async (req, res) => {
     const sort = {};
 
-    if (req.query.sortBy) {
-        const parts = req.query.sortBy.split(":");
+    const sotBy = decodeQueryParam(req, "sortBy");
+
+    if (sotBy) {
+        const parts = sotBy.split(":");
         sort[parts[0]] = parts[1] == "desc" ? -1 : 1;
     }
 
@@ -65,30 +75,83 @@ router.get("/tutorProfiles/me", auth, async (req, res) => {
 //GET /tutorProfiles?school=Simon%20Fraser%20University
 //GET /tutorProfiles?language=Korean
 //GET /tutorProfiles?hourlyRate=≤$25.00/hour
+//GET /tutorProfiles?sex=Male
+//GET /tutorProfiles?lessonMethod=Remote
+//GET /tutorProfiles?what=full-stack development
+//GET /tutorProfiles?where=coquitlam
 router.get("/tutorProfiles", async (req, res) => {
     const sort = {};
     const match = {};
+    const andConditions = [];
 
-    if (req.query.sortBy) {
-        const parts = req.query.sortBy.split(":");
+    const sotBy = decodeQueryParam(req, "sortBy");
+    const school = decodeQueryParam(req, "school");
+    const language = decodeQueryParam(req, "language");
+    const hourlyRate = decodeQueryParam(req, "hourlyRate");
+    const sex = decodeQueryParam(req, "sex");
+    const lessonMethod = decodeQueryParam(req, "lessonMethod");
+    const what = decodeQueryParam(req, "what");
+    const where = decodeQueryParam(req, "where");
+
+    if (sotBy) {
+        const parts = sotBy.split(":");
         sort[parts[0]] = parts[1] == "desc" ? -1 : 1;
     }
 
-    if (req.query.school) {
-        match["education.school"] = decodeURIComponent(req.query.school);
+    if (school) {
+        match["education.school"] = school;
     }
 
-    if (req.query.language) {
-        match["languages.language"] = decodeURIComponent(req.query.language);
+    if (language) {
+        match["languages.language"] = language;
     }
 
-    if (req.query.hourlyRate) {
+    if (hourlyRate) {
         const regex = /\$(\d+\.\d+)/;
-        const hourlyRate = decodeURIComponent(req.query.hourlyRate).match(
-            regex
-        )[1];
-        match["hourlyRate"] = { $lte: hourlyRate };
+        match["hourlyRate"] = { $lte: hourlyRate.match(regex)[1] };
     }
+
+    if (sex) {
+        match["sex"] = sex;
+    }
+
+    if (lessonMethod) {
+        match["lessonMethod"] = lessonMethod;
+    }
+
+    if (what) {
+        const fieldsToSearch = [
+            "headline",
+            "experiences.title",
+            "education.major",
+            "skills.skill",
+            "aboutMe",
+            "aboutLesson",
+            "subjects.subject",
+        ];
+
+        const whatConditions = fieldsToSearch.map((field) => ({
+            [field]: { $regex: new RegExp(what, "i") },
+        }));
+
+        andConditions.push({ $or: whatConditions });
+    }
+
+    if (where) {
+        const fieldsToSearch = ["lessonLocation", "lessonMethod"];
+
+        const whereConditions = fieldsToSearch.map((field) => ({
+            [field]: { $regex: new RegExp(where, "i") },
+        }));
+
+        andConditions.push({ $or: whereConditions });
+    }
+
+    if (andConditions.length > 0) {
+        match.$and = andConditions;
+    }
+
+    console.log(match);
 
     try {
         const tutorProfiles = await TutorProfile.find(match).sort(sort);
