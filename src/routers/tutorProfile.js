@@ -49,10 +49,10 @@ function decodeQueryParam(req, paramName) {
 router.get("/tutorProfiles/me", auth, async (req, res) => {
     const sort = {};
 
-    const sotBy = decodeQueryParam(req, "sortBy");
+    const sortBy = decodeQueryParam(req, "sortBy");
 
-    if (sotBy) {
-        const parts = sotBy.split(":");
+    if (sortBy) {
+        const parts = sortBy.split(":");
         sort[parts[0]] = parts[1] == "desc" ? -1 : 1;
     }
 
@@ -84,17 +84,17 @@ router.get("/tutorProfiles", async (req, res) => {
     const match = {};
     const andConditions = [];
 
-    const sotBy = decodeQueryParam(req, "sortBy");
+    const sortBy = decodeQueryParam(req, "sortBy");
     const school = decodeQueryParam(req, "school");
     const language = decodeQueryParam(req, "language");
     const hourlyRate = decodeQueryParam(req, "hourlyRate");
     const sex = decodeQueryParam(req, "sex");
     const lessonMethod = decodeQueryParam(req, "lessonMethod");
-    const what = decodeQueryParam(req, "what");
-    const where = decodeQueryParam(req, "where");
+    const what = decodeQueryParam(req, "what")?.trim();
+    const where = decodeQueryParam(req, "where")?.trim();
 
-    if (sotBy) {
-        const parts = sotBy.split(":");
+    if (sortBy) {
+        const parts = sortBy.split(":");
         sort[parts[0]] = parts[1] == "desc" ? -1 : 1;
     }
 
@@ -150,8 +150,6 @@ router.get("/tutorProfiles", async (req, res) => {
     if (andConditions.length > 0) {
         match.$and = andConditions;
     }
-
-    console.log(match);
 
     try {
         const tutorProfiles = await TutorProfile.find(match).sort(sort);
