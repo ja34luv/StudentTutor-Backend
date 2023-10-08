@@ -183,7 +183,7 @@ const tutorProfileSchema = new mongoose.Schema(
             type: String,
             required: true,
             trim: true,
-            enum: ["Male", "Female", "Other"],
+            enum: ["Male", "Female", "Non-Binary"],
         },
         lessonMethod: {
             type: String,

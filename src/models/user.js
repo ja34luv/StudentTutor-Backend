@@ -42,7 +42,9 @@ const userSchema = new mongoose.Schema(
         ],
         sex: {
             type: String,
+            required: true,
             trim: true,
+            enum: ["Male", "Female", "Non-Binary"],
         },
         avatar: { type: Buffer },
         // verified (student verified)

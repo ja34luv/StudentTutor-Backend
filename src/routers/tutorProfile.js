@@ -3,14 +3,6 @@ const router = new express.Router();
 const TutorProfile = require("../models/tutorProfile");
 const auth = require("../middleware/auth");
 
-// const tutorProfilE = await TutorProfile.findById(
-//     "650b6fbd3a80d61ed6840500"
-// )
-//     .populate("owner")
-//     .exec();
-// await tutorProfilE.populate("owner").exec();
-// console.log(tutorProfilE.owner);
-
 // Testing
 router.post("/tutorProfiles/test", async (req, res) => {
     const tutorProfile = new TutorProfile(req.body);
@@ -26,7 +18,13 @@ router.post("/tutorProfiles/test", async (req, res) => {
 
 // Create tutorProfiile
 router.post("/tutorProfiles", auth, async (req, res) => {
-    const tutorProfile = new TutorProfile({ ...req.body, owner: req.user._id });
+    const tutorProfile = new TutorProfile({
+        ...req.body,
+        firstName: req.user.firstName,
+        lastName: req.user.lastName,
+        sex: req.user.sex,
+        owner: req.user._id,
+    });
 
     try {
         await tutorProfile.save();
@@ -161,6 +159,46 @@ router.get("/tutorProfiles", async (req, res) => {
     }
 });
 
+router.patch("/tutorProfiles/:id", auth, async (req, res) => {
+    const updates = Object.keys(req.body);
+    const allowedUpdates = [
+        "headline",
+        "experiences",
+        "education",
+        "skills",
+        "languages",
+        "hourlyRate",
+        "lessonMethod",
+        "lessonLocation",
+        "aboutMe",
+        "aboutLesson",
+        "subjects",
+    ];
+    const isValidOperation = updates.every((update) =>
+        allowedUpdates.includes(update)
+    );
+
+    if (!isValidOperation) {
+        return res.status(400).send({ error: "Invalid update." });
+    }
+
+    try {
+        const tutorProfile = await TutorProfile.findById(req.params.id);
+
+        if (!tutorProfile) {
+            throw new Error();
+        }
+
+        updates.forEach((update) => {
+            tutorProfile[update] = req.body[update];
+        });
+        await tutorProfile.save();
+        res.send(tutorProfile);
+    } catch (e) {
+        res.status(400).send();
+    }
+});
+
 module.exports = router;
 
 // How to work with spaces in the url query
@@ -185,3 +223,14 @@ module.exports = router;
 //   // Now schoolName contains the original value "Simon Fraser University"
 //   // You can use it in your backend logic
 // });
+
+//------------------------------------------------
+
+// How to find the owner of a tutor profile
+// const tutorProfilE = await TutorProfile.findById(
+//     "650b6fbd3a80d61ed6840500"
+// )
+//     .populate("owner")
+//     .exec();
+// await tutorProfilE.populate("owner").exec();
+// console.log(tutorProfilE.owner);

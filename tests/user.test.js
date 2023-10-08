@@ -48,6 +48,7 @@ test("Should signup a new user", async () => {
             lastName: "lastName_TESTING",
             email: "ja34luv@gmail.com",
             password: "pass_word_TESTING",
+            sex: "Male",
         })
         .expect(400);
 
@@ -59,6 +60,7 @@ test("Should signup a new user", async () => {
             lastName: "",
             email: "ja34luv@gmail.com",
             password: "pass_word_TESTING",
+            sex: "Male",
         })
         .expect(400);
 
@@ -70,6 +72,7 @@ test("Should signup a new user", async () => {
             lastName: "lastName_TESTING",
             email: "",
             password: "pass_word_TESTING",
+            sex: "Male",
         })
         .expect(400);
 
@@ -81,6 +84,19 @@ test("Should signup a new user", async () => {
             lastName: "lastName_TESTING",
             email: "ja34luv@gmail.com",
             password: "",
+            sex: "Male",
+        })
+        .expect(400);
+
+    // Reject signup without sex
+    await request(app)
+        .post("/users")
+        .send({
+            firstName: "firstName_TESTING",
+            lastName: "lastName_TESTING",
+            email: "ja34luv@gmail.com",
+            password: "pass_word_TESTING",
+            sex: "",
         })
         .expect(400);
 });
