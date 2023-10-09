@@ -1,7 +1,7 @@
 const express = require("express");
-const router = new express.Router();
 const TutorProfile = require("../models/tutorProfile");
 const auth = require("../middleware/auth");
+const router = new express.Router();
 
 // Testing
 router.post("/tutorProfiles/test", async (req, res) => {
@@ -23,6 +23,7 @@ router.post("/tutorProfiles", auth, async (req, res) => {
         firstName: req.user.firstName,
         lastName: req.user.lastName,
         sex: req.user.sex,
+        avatar: req.user.avatar,
         owner: req.user._id,
     });
 
@@ -154,11 +155,11 @@ router.get("/tutorProfiles", async (req, res) => {
 
         res.send(tutorProfiles);
     } catch (e) {
-        console.log(e);
         res.status(500).send(e);
     }
 });
 
+// Update user's tutor profile
 router.patch("/tutorProfiles/:id", auth, async (req, res) => {
     const updates = Object.keys(req.body);
     const allowedUpdates = [
@@ -186,16 +187,52 @@ router.patch("/tutorProfiles/:id", auth, async (req, res) => {
         const tutorProfile = await TutorProfile.findById(req.params.id);
 
         if (!tutorProfile) {
-            throw new Error();
+            throw new Error("Tutor profile does not exist.");
+        }
+
+        if (tutorProfile.owner.toString() !== req.user._id.toString()) {
+            throw new Error("Cannot edit someone else's tutor profile.");
         }
 
         updates.forEach((update) => {
+            if (
+                update === "experiences" ||
+                update === "education" ||
+                update === "skills" ||
+                update === "languages" ||
+                update === "subjects"
+            ) {
+                // Handle nested arrays
+                req.body[update].forEach((nestedItem) => {
+                    delete nestedItem._id;
+                });
+            }
             tutorProfile[update] = req.body[update];
         });
         await tutorProfile.save();
         res.send(tutorProfile);
     } catch (e) {
-        res.status(400).send();
+        res.status(400).send(e.message);
+    }
+});
+
+// Delete user's tutor profile
+router.delete("/tutorProfiles/:id", auth, async (req, res) => {
+    try {
+        const tutorProfile = await TutorProfile.findById(req.params.id);
+
+        if (!tutorProfile) {
+            throw new Error("Tutor profile does not exist.");
+        }
+
+        if (tutorProfile.owner.toString() !== req.user._id.toString()) {
+            throw new Error("Cannot delete someone else's tutor profile.");
+        }
+
+        await tutorProfile.deleteOne();
+        res.send(tutorProfile);
+    } catch (e) {
+        res.status(500).send(e.message);
     }
 });
 
