@@ -31,7 +31,7 @@ router.post("/tutorProfiles", auth, async (req, res) => {
         await tutorProfile.save();
         res.status(201).send(tutorProfile);
     } catch (e) {
-        res.status(400).send(e);
+        res.status(400).send(e.message);
     }
 });
 
@@ -65,7 +65,22 @@ router.get("/tutorProfiles/me", auth, async (req, res) => {
 
         res.send(req.user.tutorProfiles);
     } catch (e) {
-        res.status(500).send(e);
+        res.status(500).send(e.message);
+    }
+});
+
+// Read a specific tutorProfile
+router.get("/tutorProfiles/:id", auth, async (req, res) => {
+    try {
+        const tutorProfile = await TutorProfile.findById(req.params.id);
+
+        if (!tutorProfile) {
+            throw new Error("Tutor profile not found.");
+        }
+
+        res.send(tutorProfile);
+    } catch (e) {
+        res.status(404).send(e.message);
     }
 });
 
@@ -155,7 +170,7 @@ router.get("/tutorProfiles", async (req, res) => {
 
         res.send(tutorProfiles);
     } catch (e) {
-        res.status(500).send(e);
+        res.status(500).send(e.message);
     }
 });
 
