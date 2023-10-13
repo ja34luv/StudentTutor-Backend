@@ -77,7 +77,7 @@ const tutorProfileOne = {
     ],
     languages: [
         {
-            language: "English",
+            language: "Korean",
         },
     ],
     hourlyRate: 20,
@@ -86,7 +86,7 @@ const tutorProfileOne = {
     aboutLesson: "aboutLesson_TESTING",
     subjects: [
         {
-            subject: "subject_TESTING",
+            subject: "Physics",
         },
     ],
 };
@@ -95,8 +95,51 @@ const tutorProfileTwoId = new mongoose.Types.ObjectId();
 const tutorProfileTwo = {
     ...tutorProfileOne,
     _id: tutorProfileTwoId,
+    education: [
+        {
+            ...tutorProfileOne.education[0],
+            school: "University of British Columbia",
+        },
+    ],
+    languages: [
+        {
+            language: "English",
+        },
+    ],
+    subjects: [
+        {
+            subject: "Chemistry",
+        },
+    ],
 };
 
+const tutorProfileThreeId = new mongoose.Types.ObjectId();
+const tutorProfileThree = {
+    ...tutorProfileTwo,
+    _id: tutorProfileThreeId,
+    hourlyRate: 40,
+    sex: "Female",
+    lessonMethod: "Hybrid",
+    lessonLocation: "Coquitlam",
+    subjects: [
+        {
+            subject: "Full-stack development",
+        },
+    ],
+};
+
+const tutorProfileFourId = new mongoose.Types.ObjectId();
+const tutorProfileFour = {
+    ...tutorProfileTwo,
+    _id: tutorProfileFourId,
+};
+
+const tutorProfileFiveId = new mongoose.Types.ObjectId();
+const tutorProfileFive = {
+    ...tutorProfileTwo,
+    _id: tutorProfileFiveId,
+    owner: userTwo._id,
+};
 const setupDatabase = async () => {
     await User.deleteMany();
     await TutorProfile.deleteMany();
@@ -105,6 +148,9 @@ const setupDatabase = async () => {
     await new User(userThree).save();
     await new TutorProfile(tutorProfileOne).save();
     await new TutorProfile(tutorProfileTwo).save();
+    await new TutorProfile(tutorProfileThree).save();
+    await new TutorProfile(tutorProfileFour).save();
+    await new TutorProfile(tutorProfileFive).save();
 };
 
 module.exports = {
@@ -118,5 +164,11 @@ module.exports = {
     tutorProfileOneId,
     tutorProfileTwo,
     tutorProfileTwoId,
+    tutorProfileThree,
+    tutorProfileThreeId,
+    tutorProfileFour,
+    tutorProfileFourId,
+    tutorProfileFive,
+    tutorProfileFiveId,
     setupDatabase,
 };
