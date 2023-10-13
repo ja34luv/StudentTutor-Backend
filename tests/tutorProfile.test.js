@@ -1,7 +1,7 @@
 const request = require("supertest");
 const TutorProfile = require("../src/models/tutorProfile");
 const app = require("../src/app");
-const { userOne, userOneId, setupDatabase } = require("./fixtures/db");
+const { userOne, tutorProfileOneId, setupDatabase } = require("./fixtures/db");
 
 beforeEach(setupDatabase);
 
@@ -51,7 +51,7 @@ test("Should create a new tutor profile", async () => {
     expect(tutorProfile).not.toBeNull();
     expect(response.body.firstName).toEqual(userOne.firstName);
 
-    // Send a request with missing data
+    // Send a request with missing data (Should not create a new tutor profile)
     await request(app)
         .post("/tutorProfiles")
         .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
@@ -60,4 +60,48 @@ test("Should create a new tutor profile", async () => {
             aboutLesson: "aboutLesson_TESTING",
         })
         .expect(400);
+});
+
+test("Should read user's tutor profiles", async () => {
+    // Send a valid request
+    const response = await request(app)
+        .get("/tutorProfiles/me?sortBy=createdAt:desc")
+        .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
+        .send()
+        .expect(200);
+
+    // Check if the tutor profiles are sorted by createdAt in descending order
+    const tutorProfiles = response.body;
+    for (let i = 1; i < tutorProfiles.length; i++) {
+        const prevCreatedAt = new Date(tutorProfiles[i - 1].createdAt);
+        const currentCreatedAt = new Date(tutorProfiles[i].createdAt);
+        expect(prevCreatedAt >= currentCreatedAt).toBe(true);
+    }
+
+    // Send an invalid request
+    await request(app)
+        .get("/tutorProfiles/me?sortBy=createdAt:desc")
+        .send()
+        .expect(401);
+});
+
+test("Should read a specific tutor profile", async () => {
+    // Send a valid request
+    await request(app)
+        .get(`/tutorProfiles/${tutorProfileOneId}`)
+        .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
+        .send()
+        .expect(200);
+
+    // Send an invalid request
+    await request(app)
+        .get("/tutorProfiles/InvalidRequestId")
+        .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
+        .send()
+        .expect(404);
+
+    await request(app)
+        .get(`/tutorProfiles/${tutorProfileOneId}`)
+        .send()
+        .expect(401);
 });

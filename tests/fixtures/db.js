@@ -1,4 +1,5 @@
 const User = require("../../src/models/user");
+const TutorProfile = require("../../src/models/tutorProfile");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 
@@ -47,11 +48,63 @@ const userThree = {
     sex: "Male",
 };
 
+const tutorProfileOneId = new mongoose.Types.ObjectId();
+const tutorProfileOne = {
+    _id: tutorProfileOneId,
+    firstName: userOne.firstName,
+    lastName: userOne.lastName,
+    sex: userOne.sex,
+    avatar: userOne.avatar,
+    owner: userOne._id,
+    experiences: [
+        {
+            title: "title_TESTING",
+            companyName: "companyName_TESTING",
+            startDateMonth: "month_TESTING",
+            startDateYear: 2023,
+            currentlyWorking: true,
+        },
+    ],
+    education: [
+        {
+            school: "Simon Fraser University",
+            major: "major_TESTING",
+            startDateMonth: "month_TESTING",
+            startDateYear: 2023,
+            endDateMonth: "month_TESTING",
+            endDateYear: 2023,
+        },
+    ],
+    languages: [
+        {
+            language: "English",
+        },
+    ],
+    hourlyRate: 20,
+    lessonMethod: "Remote",
+    aboutMe: "aboutMe_TESTING",
+    aboutLesson: "aboutLesson_TESTING",
+    subjects: [
+        {
+            subject: "subject_TESTING",
+        },
+    ],
+};
+
+const tutorProfileTwoId = new mongoose.Types.ObjectId();
+const tutorProfileTwo = {
+    ...tutorProfileOne,
+    _id: tutorProfileTwoId,
+};
+
 const setupDatabase = async () => {
     await User.deleteMany();
+    await TutorProfile.deleteMany();
     await new User(userOne).save();
     await new User(userTwo).save();
     await new User(userThree).save();
+    await new TutorProfile(tutorProfileOne).save();
+    await new TutorProfile(tutorProfileTwo).save();
 };
 
 module.exports = {
@@ -61,5 +114,9 @@ module.exports = {
     userTwoId,
     userThree,
     userThreeId,
+    tutorProfileOne,
+    tutorProfileOneId,
+    tutorProfileTwo,
+    tutorProfileTwoId,
     setupDatabase,
 };
