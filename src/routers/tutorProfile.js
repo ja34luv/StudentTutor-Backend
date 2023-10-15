@@ -43,11 +43,74 @@ function decodeQueryParam(req, paramName) {
     return null;
 }
 
+function parsePaginationParams(req) {
+    const pageSize = parseInt(decodeQueryParam(req, "pageSize"));
+    const pageNumber = parseInt(decodeQueryParam(req, "pageNumber"));
+    const maxPageIndexes = parseInt(decodeQueryParam(req, "maxPageIndex"));
+
+    if (
+        !pageSize ||
+        !pageNumber ||
+        !maxPageIndexes ||
+        pageSize <= 0 ||
+        pageNumber <= 0 ||
+        maxPageIndexes <= 0
+    ) {
+        throw new Error("Invalid or missing parameters.");
+    }
+
+    return {
+        pageSize,
+        pageNumber,
+        maxPageIndexes,
+    };
+}
+
+function calculatePageIndexesRange(totalPages, currentPage, maxPageIndexes) {
+    let startIndex;
+    let endIndex;
+
+    if (totalPages <= maxPageIndexes) {
+        // If totalPages is less than or equal to maxPageIndexes, show all page indexes.
+        startIndex = 1;
+        endIndex = totalPages;
+    } else {
+        // Calculate the range based on the currentPage.
+        startIndex = Math.max(1, currentPage - Math.floor(maxPageIndexes / 2));
+        endIndex = Math.min(totalPages, startIndex + maxPageIndexes - 1);
+
+        // Adjust the range if it's near the beginning or end.
+        if (endIndex === totalPages) {
+            endIndex = totalPages;
+            startIndex = endIndex - maxPageIndexes + 1;
+        } else if (startIndex === 1) {
+            startIndex = 1;
+            endIndex = startIndex + maxPageIndexes - 1;
+        }
+    }
+
+    return { startIndex, endIndex };
+}
+
+function generatePageIndexes(startIndex, endIndex, totalPages, maxPageIndexes) {
+    const pageIndexes = [];
+    for (let i = startIndex; i <= endIndex; i++) {
+        pageIndexes.push(i);
+    }
+    return pageIndexes;
+}
+
+function calculateTotalPages(totalData, dataPerPage) {
+    return Math.ceil(totalData / dataPerPage);
+}
+
 // Read user's tutorProfiles (Get my tutor profiles)
 //GET /tutorProfiles/me?sortBy=createdAt:desc (or asc)
+//GET /tutorProfles/me?pageSize=5 (UPDATED FROM HERE) --------------------------
+//GET /tutorProfles/me?pageNumber=1
+//GET /tutorProfles/me?maxPageIndexes=5
 router.get("/tutorProfiles/me", auth, async (req, res) => {
     const sort = {};
-
     const sortBy = decodeQueryParam(req, "sortBy");
 
     if (sortBy) {
@@ -56,14 +119,43 @@ router.get("/tutorProfiles/me", auth, async (req, res) => {
     }
 
     try {
+        const { pageSize, pageNumber, maxPageIndexes } =
+            parsePaginationParams(req);
+
         await req.user.populate({
             path: "tutorProfiles",
             options: {
                 sort,
+                limit: pageSize,
+                skip: (pageNumber - 1) * pageSize,
             },
         });
 
-        res.send(req.user.tutorProfiles);
+        const tutorProfiles = req.user.tutorProfiles;
+        const totalTutorProfiles = await TutorProfile.countDocuments(
+            req.user.populate({
+                path: "tutorProfiles",
+            })
+        );
+        const totalPages = calculateTotalPages(totalTutorProfiles, pageSize);
+        const { startIndex, endIndex } = calculatePageIndexesRange(
+            totalPages,
+            pageNumber,
+            maxPageIndexes
+        );
+        const pageIndexes = generatePageIndexes(
+            startIndex,
+            endIndex,
+            totalPages,
+            maxPageIndexes
+        );
+
+        res.send({
+            tutorProfiles,
+            totalPages,
+            currentPage: pageNumber,
+            pageIndexes,
+        });
     } catch (e) {
         res.status(500).send(e.message);
     }
@@ -93,6 +185,9 @@ router.get("/tutorProfiles/:id", auth, async (req, res) => {
 //GET /tutorProfiles?lessonMethod=Remote
 //GET /tutorProfiles?what=full-stack development
 //GET /tutorProfiles?where=coquitlam
+//GET /tutorProfles/me?pageSize=5 (UPDATED FROM HERE) --------------------------
+//GET /tutorProfles/me?pageNumber=1
+//GET /tutorProfles/me?maxPageIndexes=5
 router.get("/tutorProfiles", async (req, res) => {
     const sort = {};
     const match = {};
@@ -166,9 +261,36 @@ router.get("/tutorProfiles", async (req, res) => {
     }
 
     try {
-        const tutorProfiles = await TutorProfile.find(match).sort(sort);
+        const { pageSize, pageNumber, maxPageIndexes } =
+            parsePaginationParams(req);
 
-        res.send(tutorProfiles);
+        const tutorProfiles = await TutorProfile.find(match)
+            .sort(sort)
+            .limit(pageSize)
+            .skip((pageNumber - 1) * pageSize);
+
+        const totalTutorProfiles = await TutorProfile.countDocuments(match);
+        const totalPages = calculateTotalPages(totalTutorProfiles, pageSize);
+
+        const { startIndex, endIndex } = calculatePageIndexesRange(
+            totalPages,
+            pageNumber,
+            maxPageIndexes
+        );
+
+        const pageIndexes = generatePageIndexes(
+            startIndex,
+            endIndex,
+            totalPages,
+            maxPageIndexes
+        );
+
+        res.send({
+            tutorProfiles,
+            totalPages,
+            currentPage: pageNumber,
+            pageIndexes,
+        });
     } catch (e) {
         res.status(500).send(e.message);
     }

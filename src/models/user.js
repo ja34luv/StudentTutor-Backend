@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const TutorProfile = require("./tutorProfile");
 
 const userSchema = new mongoose.Schema(
     {
@@ -109,6 +110,12 @@ userSchema.pre("save", async function (next) {
         user.password = await bcrypt.hash(user.password, 8);
     }
 
+    next();
+});
+
+userSchema.pre("remove", async function (next) {
+    const user = this;
+    await TutorProfile.deleteMany({ owner: user._id });
     next();
 });
 
