@@ -75,13 +75,16 @@ test("Should read a user's tutor profiles", async () => {
         .get("/tutorProfiles/me")
         .query({
             sortBy: "createdAt:desc",
+            pageSize: "3",
+            pageNumber: "1",
+            maxPageIndex: "8",
         })
         .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
         .send()
         .expect(200);
 
     // Check if the tutor profiles are sorted by createdAt in descending order
-    const tutorProfiles = response.body;
+    const tutorProfiles = response.body.tutorProfiles;
     for (let i = 1; i < tutorProfiles.length; i++) {
         const prevCreatedAt = new Date(tutorProfiles[i - 1].createdAt);
         const currentCreatedAt = new Date(tutorProfiles[i].createdAt);
@@ -90,7 +93,13 @@ test("Should read a user's tutor profiles", async () => {
 
     // Send an invalid request
     await request(app)
-        .get("/tutorProfiles/me?sortBy=createdAt:desc")
+        .get("/tutorProfiles/me")
+        .query({
+            sortBy: "createdAt:desc",
+            pageSize: "3",
+            pageNumber: "1",
+            maxPageIndex: "8",
+        })
         .send()
         .expect(401);
 });
@@ -117,20 +126,31 @@ test("Should read a specific tutor profile", async () => {
 });
 
 test("Should read tutor profiles (General Search)", async () => {
-    // Send a valid request without query parameters
-    await request(app).get("/tutorProfiles").send().expect(200);
+    // Send a valid request without query parameters (except the pagination params)
+    await request(app)
+        .get("/tutorProfiles")
+        .query({
+            pageSize: "3",
+            pageNumber: "1",
+            maxPageIndex: "8",
+        })
+        .send()
+        .expect(200);
 
     // Send a valid request with sortBy parameter
     const responseSortBy = await request(app)
         .get("/tutorProfiles")
         .query({
             sortBy: "createdAt:desc",
+            pageSize: "3",
+            pageNumber: "1",
+            maxPageIndex: "8",
         })
         .send()
         .expect(200);
 
     // Check if the tutor profiles are sorted by createdAt in descending order
-    const tutorProfilesSortBy = responseSortBy.body;
+    const tutorProfilesSortBy = responseSortBy.body.tutorProfiles;
     for (let i = 1; i < tutorProfilesSortBy.length; i++) {
         const prevCreatedAt = new Date(tutorProfilesSortBy[i - 1].createdAt);
         const currentCreatedAt = new Date(tutorProfilesSortBy[i].createdAt);
@@ -142,12 +162,15 @@ test("Should read tutor profiles (General Search)", async () => {
         .get("/tutorProfiles")
         .query({
             school: "Simon Fraser University",
+            pageSize: "3",
+            pageNumber: "1",
+            maxPageIndex: "8",
         })
         .send()
         .expect(200);
 
     expect(
-        responseSchool.body.every((tutorProfile) => {
+        responseSchool.body.tutorProfiles.every((tutorProfile) => {
             return tutorProfile.education.some((education) => {
                 return education.school === "Simon Fraser University";
             });
@@ -159,12 +182,15 @@ test("Should read tutor profiles (General Search)", async () => {
         .get("/tutorProfiles")
         .query({
             language: "Korean",
+            pageSize: "3",
+            pageNumber: "1",
+            maxPageIndex: "8",
         })
         .send()
         .expect(200);
 
     expect(
-        responseLanguage.body.every((tutorProfile) => {
+        responseLanguage.body.tutorProfiles.every((tutorProfile) => {
             return tutorProfile.languages.some((language) => {
                 return language.language === "Korean";
             });
@@ -176,12 +202,15 @@ test("Should read tutor profiles (General Search)", async () => {
         .get("/tutorProfiles")
         .query({
             hourlyRate: "≤$25.00/hour",
+            pageSize: "3",
+            pageNumber: "1",
+            maxPageIndex: "8",
         })
         .send()
         .expect(200);
 
     expect(
-        responseHourlyRate.body.every((tutorProfile) => {
+        responseHourlyRate.body.tutorProfiles.every((tutorProfile) => {
             return tutorProfile.hourlyRate <= 25;
         })
     ).toBe(true);
@@ -191,12 +220,15 @@ test("Should read tutor profiles (General Search)", async () => {
         .get("/tutorProfiles")
         .query({
             sex: "Female",
+            pageSize: "3",
+            pageNumber: "1",
+            maxPageIndex: "8",
         })
         .send()
         .expect(200);
 
     expect(
-        responseSex.body.every((tutorProfile) => {
+        responseSex.body.tutorProfiles.every((tutorProfile) => {
             return tutorProfile.sex === "Female";
         })
     ).toBe(true);
@@ -206,12 +238,15 @@ test("Should read tutor profiles (General Search)", async () => {
         .get("/tutorProfiles")
         .query({
             lessonMethod: "Remote",
+            pageSize: "3",
+            pageNumber: "1",
+            maxPageIndex: "8",
         })
         .send()
         .expect(200);
 
     expect(
-        responseLessonMethod.body.every((tutorProfile) => {
+        responseLessonMethod.body.tutorProfiles.every((tutorProfile) => {
             return tutorProfile.lessonMethod === "Remote";
         })
     ).toBe(true);
@@ -221,12 +256,15 @@ test("Should read tutor profiles (General Search)", async () => {
         .get("/tutorProfiles")
         .query({
             what: "Chemistry",
+            pageSize: "3",
+            pageNumber: "1",
+            maxPageIndex: "8",
         })
         .send()
         .expect(200);
 
     expect(
-        responseWhat.body.every((tutorProfile) => {
+        responseWhat.body.tutorProfiles.every((tutorProfile) => {
             return tutorProfile.subjects.some((subject) => {
                 return subject.subject === "Chemistry";
             });
@@ -238,12 +276,15 @@ test("Should read tutor profiles (General Search)", async () => {
         .get("/tutorProfiles")
         .query({
             what: "full-stack",
+            pageSize: "3",
+            pageNumber: "1",
+            maxPageIndex: "8",
         })
         .send()
         .expect(200);
 
     expect(
-        responseWhatPartial.body.every((tutorProfile) => {
+        responseWhatPartial.body.tutorProfiles.every((tutorProfile) => {
             return tutorProfile.subjects.some((subject) => {
                 return subject.subject === "Full-stack development";
             });
@@ -255,12 +296,15 @@ test("Should read tutor profiles (General Search)", async () => {
         .get("/tutorProfiles")
         .query({
             where: "Coquitlam",
+            pageSize: "3",
+            pageNumber: "1",
+            maxPageIndex: "8",
         })
         .send()
         .expect(200);
 
     expect(
-        responseWhere.body.every((tutorProfile) => {
+        responseWhere.body.tutorProfiles.every((tutorProfile) => {
             return tutorProfile.lessonLocation === "Coquitlam";
         })
     ).toBe(true);
@@ -273,12 +317,15 @@ test("Should read tutor profiles (General Search)", async () => {
             where: "remote",
             hourlyRate: "≤$20.00/hour",
             lessonMethod: "Remote",
+            pageSize: "3",
+            pageNumber: "1",
+            maxPageIndex: "8",
         })
         .send()
         .expect(200);
 
     expect(
-        responseCombination.body.every((tutorProfile) => {
+        responseCombination.body.tutorProfiles.every((tutorProfile) => {
             return (
                 tutorProfile.subjects.some((subject) => {
                     return subject.subject === "Chemistry";
@@ -297,11 +344,14 @@ test("Should read tutor profiles (General Search)", async () => {
             where: "Coquitlam",
             hourlyRate: "≤$20.00/hour",
             lessonMethod: "Remote",
+            pageSize: "3",
+            pageNumber: "1",
+            maxPageIndex: "8",
         })
         .send()
         .expect(200);
 
-    expect(responseCombinationInvalid.body).toStrictEqual([]);
+    expect(responseCombinationInvalid.body.tutorProfiles).toStrictEqual([]);
 });
 
 test("Should update a user's tutor profile", async () => {

@@ -113,7 +113,7 @@ userSchema.pre("save", async function (next) {
     next();
 });
 
-userSchema.pre("remove", async function (next) {
+userSchema.pre("deleteOne", { document: true }, async function (next) {
     const user = this;
     await TutorProfile.deleteMany({ owner: user._id });
     next();
