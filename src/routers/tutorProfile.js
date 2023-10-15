@@ -106,7 +106,7 @@ function calculateTotalPages(totalData, dataPerPage) {
 
 // Read user's tutorProfiles (Get my tutor profiles)
 //GET /tutorProfiles/me?sortBy=createdAt:desc (or asc)
-//GET /tutorProfles/me?pageSize=5 (UPDATED FROM HERE) --------------------------
+//GET /tutorProfles/me?pageSize=5
 //GET /tutorProfles/me?pageNumber=1
 //GET /tutorProfles/me?maxPageIndexes=5
 router.get("/tutorProfiles/me", auth, async (req, res) => {
@@ -185,7 +185,7 @@ router.get("/tutorProfiles/:id", auth, async (req, res) => {
 //GET /tutorProfiles?lessonMethod=Remote
 //GET /tutorProfiles?what=full-stack development
 //GET /tutorProfiles?where=coquitlam
-//GET /tutorProfles/me?pageSize=5 (UPDATED FROM HERE) --------------------------
+//GET /tutorProfles/me?pageSize=5
 //GET /tutorProfles/me?pageNumber=1
 //GET /tutorProfles/me?maxPageIndexes=5
 router.get("/tutorProfiles", async (req, res) => {
