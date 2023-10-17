@@ -162,14 +162,20 @@ const setupDatabase = async () => {
     await TutorProfile.deleteMany();
     await Conversation.deleteMany();
     await Message.deleteMany();
+
+    // Create users
     await new User(userOne).save();
     await new User(userTwo).save();
     await new User(userThree).save();
+
+    // Create tutor profiles
     await new TutorProfile(tutorProfileOne).save();
     await new TutorProfile(tutorProfileTwo).save();
     await new TutorProfile(tutorProfileThree).save();
     await new TutorProfile(tutorProfileFour).save();
     await new TutorProfile(tutorProfileFive).save();
+
+    // Create conversations
     await new Conversation(conversationOne).save();
 };
 

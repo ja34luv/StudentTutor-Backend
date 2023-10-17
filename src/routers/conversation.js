@@ -5,28 +5,28 @@ const router = new express.Router();
 
 // Create a new conversation
 router.post("/conversations", auth, async (req, res) => {
-    const conversation = new Conversation({
-        members: [req.user._id, req.body.receiverId],
-        tutorProfile: req.body.tutorProfile,
-    });
-
     try {
+        // Check if a conversation with these members already exists
         const existingConversation = await Conversation.findOne({
-            members: {
-                $all: [req.user._id, req.body.receiverId],
-            },
+            members: { $all: [req.user._id, req.body.receiverId] },
         });
 
         if (existingConversation) {
-            throw new Error(
-                "A conversation with these members already exists."
-            );
+            return res
+                .status(500)
+                .send("A conversation with these members already exists.");
         }
+
+        // If no existing conversation, create a new one
+        const conversation = new Conversation({
+            members: [req.user._id, req.body.receiverId],
+            tutorProfile: req.body.tutorProfile,
+        });
 
         await conversation.save();
         res.status(200).send(conversation);
     } catch (e) {
-        console.log("erorr:", e.message);
+        console.log("error:", e.message);
         res.status(500).send(e.message);
     }
 });
