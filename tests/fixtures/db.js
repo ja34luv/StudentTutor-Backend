@@ -1,5 +1,7 @@
 const User = require("../../src/models/user");
 const TutorProfile = require("../../src/models/tutorProfile");
+const Conversation = require("../../src/models/conversation");
+const Message = require("../../src/models/message");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 
@@ -140,9 +142,26 @@ const tutorProfileFive = {
     _id: tutorProfileFiveId,
     owner: userTwo._id,
 };
+
+const tutorProfileSixId = new mongoose.Types.ObjectId();
+const tutorProfileSix = {
+    ...tutorProfileTwo,
+    _id: tutorProfileSixId,
+    owner: userThree._id,
+};
+
+const conversationOneId = new mongoose.Types.ObjectId();
+const conversationOne = {
+    _id: conversationOneId,
+    members: [userOneId, userThreeId],
+    tutorProfile: tutorProfileFiveId,
+};
+
 const setupDatabase = async () => {
     await User.deleteMany();
     await TutorProfile.deleteMany();
+    await Conversation.deleteMany();
+    await Message.deleteMany();
     await new User(userOne).save();
     await new User(userTwo).save();
     await new User(userThree).save();
@@ -151,6 +170,7 @@ const setupDatabase = async () => {
     await new TutorProfile(tutorProfileThree).save();
     await new TutorProfile(tutorProfileFour).save();
     await new TutorProfile(tutorProfileFive).save();
+    await new Conversation(conversationOne).save();
 };
 
 module.exports = {
@@ -170,5 +190,9 @@ module.exports = {
     tutorProfileFourId,
     tutorProfileFive,
     tutorProfileFiveId,
+    tutorProfileSix,
+    tutorProfileSixId,
+    conversationOne,
+    conversationOneId,
     setupDatabase,
 };

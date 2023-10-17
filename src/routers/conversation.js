@@ -11,9 +11,22 @@ router.post("/conversations", auth, async (req, res) => {
     });
 
     try {
+        const existingConversation = await Conversation.findOne({
+            members: {
+                $all: [req.user._id, req.body.receiverId],
+            },
+        });
+
+        if (existingConversation) {
+            throw new Error(
+                "A conversation with these members already exists."
+            );
+        }
+
         await conversation.save();
         res.status(200).send(conversation);
     } catch (e) {
+        console.log("erorr:", e.message);
         res.status(500).send(e.message);
     }
 });
