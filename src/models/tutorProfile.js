@@ -85,6 +85,7 @@ const tutorProfileSchema = new mongoose.Schema(
                     endDateMonth: { type: String, required: true },
                     endDateYear: { type: Number, required: true },
                     gpa: { type: String, trim: true },
+                    currentlyAttending: { type: Boolean, required: true },
                 },
             ],
             validate: {
@@ -94,6 +95,25 @@ const tutorProfileSchema = new mongoose.Schema(
                         throw new Error(
                             "Please provide an education information."
                         );
+
+                    let foundCurrentlyAttending = false;
+
+                    for (const entry of education) {
+                        if (entry.currentlyAttending) {
+                            if (foundCurrentlyAttending) {
+                                throw new Error(
+                                    "Only one education can have the currentlyAttending value set to be true."
+                                );
+                            }
+                            foundCurrentlyAttending = true;
+                        }
+                    }
+
+                    if (!foundCurrentlyAttending) {
+                        throw new Error(
+                            "Please indicate which education entry you are currently attending."
+                        );
+                    }
                 },
             },
         },
