@@ -23,7 +23,6 @@ router.post("/tutorProfiles", auth, async (req, res) => {
         firstName: req.user.firstName,
         lastName: req.user.lastName,
         sex: req.user.sex,
-        avatar: req.user.avatar,
         owner: req.user._id,
     });
 

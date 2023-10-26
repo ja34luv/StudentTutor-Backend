@@ -198,7 +198,6 @@ const tutorProfileSchema = new mongoose.Schema(
             required: true,
             trim: true,
         },
-        avatar: { type: Buffer },
         sex: {
             type: String,
             required: true,
