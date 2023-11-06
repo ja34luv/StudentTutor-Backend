@@ -237,7 +237,11 @@ const tutorProfileSchema = new mongoose.Schema(
             type: [
                 {
                     subject: { type: String, trim: true, required: true },
-                    teachingLevels: { type: String, trim: true },
+                    teachingLevels: {
+                        type: String,
+                        trim: true,
+                        reqruied: true,
+                    },
                 },
             ],
             validate: {
