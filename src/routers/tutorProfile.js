@@ -104,7 +104,7 @@ function calculateTotalPages(totalData, dataPerPage) {
 }
 
 // Read user's tutorProfiles (Get my tutor profiles)
-//GET /tutorProfiles/me?sortBy=createdAt:desc (or asc)
+//GET /tutorProfiles/me?sortBy=createdAt:Newest (or Oldest)
 //GET /tutorProfles/me?pageSize=5
 //GET /tutorProfles/me?pageNumber=1
 //GET /tutorProfles/me?maxPageIndexes=5
@@ -114,7 +114,7 @@ router.get("/tutorProfiles/me", auth, async (req, res) => {
 
     if (sortBy) {
         const parts = sortBy.split(":");
-        sort[parts[0]] = parts[1] == "desc" ? -1 : 1;
+        sort[parts[0]] = parts[1] == "Newest" ? -1 : 1;
     }
 
     try {
@@ -176,7 +176,7 @@ router.get("/tutorProfiles/:id", auth, async (req, res) => {
 });
 
 // Read tutorProfiles (General search)
-//GET /tutorProfiles?sortBy=createdAt:desc (or asc)
+//GET /tutorProfiles?sortBy=createdAt:Newest (or Oldest)
 //GET /tutorProfiles?school=Simon%20Fraser%20University
 //GET /tutorProfiles?language=Korean
 //GET /tutorProfiles?hourlyRate=≤$25.00/hour
@@ -203,7 +203,7 @@ router.get("/tutorProfiles", async (req, res) => {
 
     if (sortBy) {
         const parts = sortBy.split(":");
-        sort[parts[0]] = parts[1] == "desc" ? -1 : 1;
+        sort[parts[0]] = parts[1] == "Newest" ? -1 : 1;
     }
 
     if (school) {
