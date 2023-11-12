@@ -22,7 +22,7 @@ router.post("/tutorProfiles", auth, async (req, res) => {
         ...req.body,
         firstName: req.user.firstName,
         lastName: req.user.lastName,
-        sex: req.user.sex,
+        gender: req.user.gender,
         owner: req.user._id,
     });
 
@@ -180,7 +180,7 @@ router.get("/tutorProfiles/:id", auth, async (req, res) => {
 //GET /tutorProfiles?school=Simon%20Fraser%20University
 //GET /tutorProfiles?language=Korean
 //GET /tutorProfiles?hourlyRate=≤$25.00/hour
-//GET /tutorProfiles?sex=Male
+//GET /tutorProfiles?gender=Male
 //GET /tutorProfiles?lessonMethod=Remote
 //GET /tutorProfiles?what=full-stack development
 //GET /tutorProfiles?where=coquitlam
@@ -196,7 +196,7 @@ router.get("/tutorProfiles", async (req, res) => {
     const school = decodeQueryParam(req, "school");
     const language = decodeQueryParam(req, "language");
     const hourlyRate = decodeQueryParam(req, "hourlyRate");
-    const sex = decodeQueryParam(req, "sex");
+    const gender = decodeQueryParam(req, "gender");
     const lessonMethod = decodeQueryParam(req, "lessonMethod");
     const what = decodeQueryParam(req, "what")?.trim();
     const where = decodeQueryParam(req, "where")?.trim();
@@ -219,8 +219,8 @@ router.get("/tutorProfiles", async (req, res) => {
         match["hourlyRate"] = { $lte: hourlyRate.match(regex)[1] };
     }
 
-    if (sex) {
-        match["sex"] = sex;
+    if (gender) {
+        match["gender"] = gender;
     }
 
     if (lessonMethod) {

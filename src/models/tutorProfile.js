@@ -198,7 +198,7 @@ const tutorProfileSchema = new mongoose.Schema(
             required: true,
             trim: true,
         },
-        sex: {
+        gender: {
             type: String,
             required: true,
             trim: true,
