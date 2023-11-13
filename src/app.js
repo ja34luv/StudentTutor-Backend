@@ -8,6 +8,7 @@ const userRouter = require("./routers/user");
 const tutorProfileRouter = require("./routers/tutorProfile");
 const conversationRouter = require("./routers/conversation");
 const messageRouter = require("./routers/message");
+const authRouter = require("./routers/auth");
 
 const app = express();
 
@@ -25,5 +26,6 @@ app.use(userRouter);
 app.use(tutorProfileRouter);
 app.use(conversationRouter);
 app.use(messageRouter);
+app.use(authRouter);
 
 module.exports = app;

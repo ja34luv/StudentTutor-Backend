@@ -24,7 +24,11 @@ router.post("/users", async (req, res) => {
         await user.save();
         sendWelcomeEmail(user.email, user.firstName);
         const token = await user.generateAuthToken();
-        res.cookie("auth_token", token);
+
+        res.cookie("auth_token", token, {
+            // httpOnly: true,
+            // secure: true,
+        });
         res.status(201).send({ user, token });
     } catch (e) {
         res.status(400).send(e.message);
@@ -39,7 +43,11 @@ router.post("/users/login", async (req, res) => {
             req.body.password
         );
         const token = await user.generateAuthToken();
-        res.cookie("auth_token", token);
+
+        res.cookie("auth_token", token, {
+            // httpOnly: true,
+            // secure: true,
+        });
         res.send({ user, token });
     } catch (e) {
         res.status(400).send(e.message);
@@ -130,7 +138,7 @@ router.get("/users/:id/avatar", async (req, res) => {
 // Update user (Update profile)
 router.patch("/users/me", auth, async (req, res) => {
     const updates = Object.keys(req.body);
-    const allowedUpdates = ["firstName", "lastName", "password", "sex"];
+    const allowedUpdates = ["firstName", "lastName", "password", "gender"];
     const isValidOperation = updates.every((update) =>
         allowedUpdates.includes(update)
     );
