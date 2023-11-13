@@ -240,7 +240,7 @@ const tutorProfileSchema = new mongoose.Schema(
                     teachingLevels: {
                         type: String,
                         trim: true,
-                        reqruied: true,
+                        required: true,
                     },
                 },
             ],
