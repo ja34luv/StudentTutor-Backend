@@ -5,7 +5,10 @@ const router = new express.Router();
 // Check if the auth token is valid
 router.post("/checkAuthToken", auth, async (req, res) => {
     try {
-        res.status(200).send({ message: "Auth token is valid." });
+        res.status(200).send({
+            message: "Auth token is valid.",
+            user: req.user,
+        });
     } catch (e) {
         res.status(401).send({ error: "Invalid auth token." });
     }

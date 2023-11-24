@@ -339,9 +339,14 @@ router.patch("/tutorProfiles/:id", auth, async (req, res) => {
                 update === "subjects"
             ) {
                 // Handle nested arrays
-                req.body[update].forEach((nestedItem) => {
-                    delete nestedItem._id;
-                });
+                if (
+                    Array.isArray(req.body[update]) &&
+                    req.body[update].length > 0
+                ) {
+                    req.body[update].forEach((nestedItem) => {
+                        delete nestedItem._id;
+                    });
+                }
             }
             tutorProfile[update] = req.body[update];
         });

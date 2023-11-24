@@ -16,32 +16,43 @@ const tutorProfileSchema = new mongoose.Schema(
                     title: { type: String, required: true, trim: true },
                     employmentType: {
                         type: String,
-                        enum: [
-                            "Full-Time",
-                            "Part-Time",
-                            "Contract",
-                            "Freelance",
-                            "Internship",
-                            "Co-op (Cooperative Education)",
-                            "Volunteer",
-                            "Self-Employed",
-                        ],
+                        // enum: [
+                        //     "Full-Time",
+                        //     "Part-Time",
+                        //     "Contract",
+                        //     "Freelance",
+                        //     "Internship",
+                        //     "Co-op (Cooperative Education)",
+                        //     "Volunteer",
+                        //     "Self-Employed",
+                        // ],
                     },
                     companyName: { type: String, required: true, trim: true },
                     location: { type: String, trim: true },
                     locationType: {
                         type: String,
-                        enum: ["On-Site", "Remote", "Hybrid"],
+                        // enum: ["On-Site", "Remote", "Hybrid"],
                     },
                     startDateMonth: { type: String, required: true },
                     startDateYear: { type: Number, required: true },
                     endDateMonth: { type: String },
                     endDateYear: { type: Number },
-                    currentlyWorking: { type: Boolean },
+                    currentlyWorking: { type: Boolean, required: true },
                 },
             ],
             validate: {
                 validator: function (experiences) {
+                    // Check if there are no experiences provided or if the array is empty
+                    if (!experiences || experiences.length === 0) {
+                        return true; // No experiences provided, validation passes
+                    }
+
+                    // console.log(experiences.length === 1 && !experiences[0]);
+                    // Check if there's only one empty string in the experiences array
+                    if (experiences.length === 1 && !experiences[0]) {
+                        return true; // Only one empty experience, validation passes
+                    }
+
                     // disable endDateMonth/endDateYear & currentlyWorking insertion at the same time.
                     for (const experience of experiences) {
                         const hasEndDate =
@@ -73,10 +84,10 @@ const tutorProfileSchema = new mongoose.Schema(
                         type: String,
                         required: true,
                         trim: true,
-                        enum: [
-                            "Simon Fraser University",
-                            "University of British Columbia",
-                        ],
+                        // enum: [
+                        //     "Simon Fraser University",
+                        //     "University of British Columbia",
+                        // ],
                     },
                     degree: { type: String, trim: true },
                     major: { type: String, required: true, trim: true },
