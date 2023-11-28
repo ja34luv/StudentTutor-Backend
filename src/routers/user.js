@@ -117,6 +117,21 @@ router.get("/users/me", auth, async (req, res) => {
     res.send(req.user);
 });
 
+// Read another user (Read profile)
+router.get("/users/:id", auth, async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+
+        if (!user) {
+            throw new Error("User does not exist");
+        }
+
+        res.send(user);
+    } catch (e) {
+        res.status(404).send(e.message);
+    }
+});
+
 // Read avatar (Read profile picture)
 router.get("/users/:id/avatar", async (req, res) => {
     try {
