@@ -11,6 +11,13 @@ router.post("/conversations", auth, async (req, res) => {
             members: { $all: [req.user._id, req.body.receiverId] },
         });
 
+        // Check if the sender and the receiver are two different users
+        if (req.user._id == req.body.receiverId) {
+            return res
+                .status(500)
+                .send("Cannot start a conversation with yourself.");
+        }
+
         if (existingConversation) {
             return res
                 .status(500)
