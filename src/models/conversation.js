@@ -26,6 +26,12 @@ const conversationSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
+// conversationSchema.pre("deleteOne", { document: true }, async function (next) {
+//     const conversation = this;
+//     await Message.deleteMany({ conversation: conversation._id });
+//     next();
+// });
+
 const Conversation = mongoose.model("Conversation", conversationSchema);
 
 module.exports = Conversation;
