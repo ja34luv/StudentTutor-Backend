@@ -25,9 +25,12 @@ router.post("/users", async (req, res) => {
         sendWelcomeEmail(user.email, user.firstName);
         const token = await user.generateAuthToken();
 
+        const domain = req.headers.host;
+
         res.cookie("auth_token", token, {
-            // httpOnly: true,
-            // secure: true,
+            domain: domain,
+            httpOnly: true,
+            secure: true,
         });
         res.status(201).send({ user, token });
     } catch (e) {
@@ -44,9 +47,12 @@ router.post("/users/login", async (req, res) => {
         );
         const token = await user.generateAuthToken();
 
+        const domain = req.headers.host;
+
         res.cookie("auth_token", token, {
-            // httpOnly: true,
-            // secure: true,
+            domain: domain,
+            httpOnly: true,
+            secure: true,
         });
         res.send({ user, token });
     } catch (e) {
