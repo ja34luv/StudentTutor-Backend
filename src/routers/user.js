@@ -25,10 +25,8 @@ router.post("/users", async (req, res) => {
         sendWelcomeEmail(user.email, user.firstName);
         const token = await user.generateAuthToken();
 
-        const domain = req.headers.host;
-
         res.cookie("auth_token", token, {
-            domain: domain,
+            domain: "grabpencil.com",
             httpOnly: true,
             secure: true,
         });
@@ -47,10 +45,8 @@ router.post("/users/login", async (req, res) => {
         );
         const token = await user.generateAuthToken();
 
-        const domain = req.headers.host;
-
         res.cookie("auth_token", token, {
-            domain: domain,
+            domain: "grabpencil.com",
             httpOnly: true,
             secure: true,
         });
