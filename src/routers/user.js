@@ -26,6 +26,7 @@ router.post("/users", async (req, res) => {
         const token = await user.generateAuthToken();
 
         res.cookie("auth_token", token, {
+            domain: ".grabpencil.com",
             // httpOnly: true,
             // secure: true,
         });
@@ -45,6 +46,7 @@ router.post("/users/login", async (req, res) => {
         const token = await user.generateAuthToken();
 
         res.cookie("auth_token", token, {
+            domain: ".grabpencil.com",
             // httpOnly: true,
             // secure: true,
         });
