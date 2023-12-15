@@ -27,7 +27,7 @@ router.post("/users", async (req, res) => {
 
         res.cookie("auth_token", token, {
             // httpOnly: true,
-            secure: true,
+            // secure: true,
         });
         res.status(201).send({ user, token });
     } catch (e) {
@@ -46,7 +46,7 @@ router.post("/users/login", async (req, res) => {
 
         res.cookie("auth_token", token, {
             // httpOnly: true,
-            secure: true,
+            // secure: true,
         });
         res.send({ user, token });
     } catch (e) {
