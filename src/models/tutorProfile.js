@@ -37,7 +37,7 @@ const tutorProfileSchema = new mongoose.Schema(
                     startDateYear: { type: Number, required: true },
                     endDateMonth: { type: String },
                     endDateYear: { type: Number },
-                    currentlyWorking: { type: Boolean, required: true },
+                    currentlyWorking: { type: Boolean },
                 },
             ],
             validate: {
