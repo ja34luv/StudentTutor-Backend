@@ -22,7 +22,7 @@ router.post("/users", async (req, res) => {
 
     try {
         await user.save();
-        sendWelcomeEmail(user.email, user.firstName);
+        // sendWelcomeEmail(user.email, user.firstName);
         const token = await user.generateAuthToken();
 
         res.cookie("auth_token", token, {
@@ -179,7 +179,7 @@ router.patch("/users/me", auth, async (req, res) => {
 router.delete("/users/me", auth, async (req, res) => {
     try {
         await req.user.deleteOne();
-        sendCancelationEmail(req.user.email, req.user.firstName);
+        // sendCancelationEmail(req.user.email, req.user.firstName);
         res.send(req.user);
     } catch (e) {
         res.status(500).send(e.message);
