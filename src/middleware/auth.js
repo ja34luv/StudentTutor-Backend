@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 
 const auth = async (req, res, next) => {
+    // comment
     // get auth token from req header
     // decode the token to get the _id
     // find matching user with the _id and check if the user exists and the token exists
