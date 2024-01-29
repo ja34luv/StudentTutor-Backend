@@ -6,6 +6,8 @@ Welcome to the **backend code** repository of GrabPencil.
 
 ![Demo_Gif](./assets/animations/GrabPencil_Demo-ezgif.com-video-to-gif-converter.gif)
 
+-   ![badmath](https://img.shields.io/github/languages/top/lernantino/badmath)
+
 ## Description
 
 GrabPencil is a **tutor matching website tailored for students** at [Simon Fraser University](https://en.wikipedia.org/wiki/Simon_Fraser_University) and the [University of British Columbia](https://en.wikipedia.org/wiki/University_of_British_Columbia). Students can easily create **tutor profiles** similar to LinkedIn, allowing others to view their information at a glance. The platform includes a built-in **chat system** for quick and easy communication, enabling users to freely connect with tutors that match their preferences. Additionally, GrabPencil encompasses Indeed-like **filter and search features** for enhanced user experience.
@@ -15,10 +17,16 @@ GrabPencil is a **tutor matching website tailored for students** at [Simon Frase
 
 ## Table of Contents
 
+-   [GrabPencil](#GrabPencil)
+-   [Description](#Description)
+-   [Table of Contents](#Table_of_Contents)
 -   [Outline](#Outline)
--   [Usage](#usage)
--   [Credits](#credits)
--   [License](#license)
+-   [Usage](#Usage)
+-   [Features](#Features)
+-   [Credits](#Credits)
+-   [License](#License)
+-   [Badges](#Badges)
+-   [How to Contribute](#How_to_Contribute)
 
 ## Outline
 
@@ -74,31 +82,9 @@ Backend practices were learned and implemented following this [tutorial](https:/
 
 ## License
 
-MIT License
-
-Copyright (c) 2021 Othneil Drew
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+This project is licensed under the MIT License - see the [LICENSE.md](./LICENSE.md) file for details
 
 ## Badges
-
--   ![badmath](https://img.shields.io/github/languages/top/lernantino/badmath)
 
 -   ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 -   ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
