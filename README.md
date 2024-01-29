@@ -1,4 +1,4 @@
-# GrabPencil.com - A Tutor Matching Website
+# GrabPencil
 
 ## Description
 
