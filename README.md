@@ -1,4 +1,4 @@
-<iframe src="https://giphy.com/embed/9Zp5gnhwDZflNuiZXt" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+![Book_Gif](./assets/animations/book.gif)
 
 ![GitHub top language](https://img.shields.io/github/languages/top/jayhonglee/GrabPencil-Backend.svg?style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/jayhonglee/GrabPencil-Backend.svg?style=for-the-badge)
