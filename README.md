@@ -1,4 +1,4 @@
-![Pencil.png](./assets/images/pencil.png)
+![Pencil_GIF](./assets/animations/pencil.gif)
 
 ![GitHub top language](https://img.shields.io/github/languages/top/jayhonglee/GrabPencil-Backend.svg?style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/jayhonglee/GrabPencil-Backend.svg?style=for-the-badge)
