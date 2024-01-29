@@ -36,6 +36,12 @@ Simply follow the link below and explore the platform!
 
 -   [https://www.grabpencil.com/](https://www.grabpencil.com/)
 
+## Features
+
+-   [ ] Task 1
+-   [x] Task 2 (completed)
+-   [ ] Task 3
+
 ## Credits
 
 This was a solo, full-stack project.
@@ -82,10 +88,6 @@ SOFTWARE.
 -   ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
 -   ![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)
 -   ![Nodemon](https://img.shields.io/badge/NODEMON-%23323330.svg?style=for-the-badge&logo=nodemon&logoColor=%BBDEAD)
-
-## Features
-
-If your project has a lot of features, list them here.
 
 ## How to Contribute
 
