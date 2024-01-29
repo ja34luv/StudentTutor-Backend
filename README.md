@@ -1,4 +1,4 @@
-![Pencil_GIF](./assets/animations/pencil.gif)
+<img src="./assets/animations/pencil.gif" alt="Pencil_GIF" width="100" height="100">
 
 ![GitHub top language](https://img.shields.io/github/languages/top/jayhonglee/GrabPencil-Backend.svg?style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/jayhonglee/GrabPencil-Backend.svg?style=for-the-badge)
