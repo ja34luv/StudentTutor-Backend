@@ -83,13 +83,13 @@ Simply follow the link below and explore the platform!
 
 ## Credits
 
-This was a solo, full-stack project.
+-   This was a solo, full-stack project.
 
-The UI/UX was inspired by [Indeed.com](https://ca.indeed.com/) and [LinkedIn](https://www.linkedin.com/feed/).
+-   The UI/UX was inspired by [Indeed.com](https://ca.indeed.com/) and [LinkedIn](https://www.linkedin.com/feed/).
 
-Backend practices were learned and implemented following this [tutorial](https://www.udemy.com/course/the-complete-nodejs-developer-course-2/).
+-   Backend practices were learned and implemented following this [tutorial](https://www.udemy.com/course/the-complete-nodejs-developer-course-2/).
 
-<a href="https://www.flaticon.com/free-animated-icons/pencil" title="pencil animated icons">Pencil animated icons created by Freepik - Flaticon</a>
+-   <a href="https://www.flaticon.com/free-animated-icons/pencil" title="pencil animated icons">Pencil animated icons created by Freepik - Flaticon</a>
 
 ## License
 
