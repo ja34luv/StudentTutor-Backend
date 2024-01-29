@@ -1,4 +1,5 @@
-<iframe src="https://giphy.com/embed/9Zp5gnhwDZflNuiZXt" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/transparent-9Zp5gnhwDZflNuiZXt">via GIPHY</a></p>
+<iframe src="https://giphy.com/embed/9Zp5gnhwDZflNuiZXt" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+
 ![GitHub top language](https://img.shields.io/github/languages/top/jayhonglee/GrabPencil-Backend.svg?style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/jayhonglee/GrabPencil-Backend.svg?style=for-the-badge)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/jayhonglee/GrabPencil-Backend.svg?style=for-the-badge)
