@@ -1,3 +1,8 @@
+![badmath](https://img.shields.io/github/languages/top/lernantino/badmath)
+![GitHub last commit](https://img.shields.io/github/last-commit/jayhonglee/GrabPencil-Backend.svg?style=for-the-badge)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/jayhonglee/GrabPencil-Backend.svg?style=for-the-badge)
+![GitHub license](https://img.shields.io/github/license/jayhonglee/GrabPencil-Backend.svg?style=for-the-badge)
+
 # GrabPencil ✏️
 
 Welcome to the **backend code** repository of GrabPencil.
@@ -5,8 +10,6 @@ Welcome to the **backend code** repository of GrabPencil.
 -   If you're interested in the frontend code, you can find it [here](https://github.com/jayhonglee/GrabPencil-Frontend).
 
 ![Demo_Gif](./assets/animations/GrabPencil_Demo-ezgif.com-video-to-gif-converter.gif)
-
--   ![badmath](https://img.shields.io/github/languages/top/lernantino/badmath)
 
 ## Description
 
