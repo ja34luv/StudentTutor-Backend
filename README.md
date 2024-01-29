@@ -59,10 +59,10 @@ Simply follow the link below and explore the platform!
     -   [x] Real-time chatting
     -   [x] Real-time online user status
 
--   [] Design
+-   [ ] Design
     -   [x] Pagination
-    -   [] Update about page
-    -   [] Responsive design
+    -   [ ] Update about page
+    -   [ ] Responsive design
 
 ## Credits
 
