@@ -8,12 +8,10 @@ Welcome to the backend code repository of GrabPencil.
 
 ## Description
 
-Provide a short description explaining the what, why, and how of your project. Use the following questions as a guide:
+This repository contains the backend code for GrabPencil, a tutor matching website tailored for students at Simon Fraser University and the University of British Columbia. Users can easily create tutor profiles similar to LinkedIn, allowing others to view their information at a glance. The platform includes a built-in chat system for quick and easy communication, enabling users to freely connect with tutors that match their preferences.
 
 -   What was your motivation?
--   Why did you build this project? (Note: the answer is not "Because it was a homework assignment.")
--   What problem does it solve?
--   What did you learn?
+    My motivation stemmed from observing my peers, friends, and even my girlfriend seeking tutoring opportunities. While existing tutor matching websites were available, they were saturated with a diverse range of tutors, making it challenging for students to stand out and for users to filter through student tutors. I aimed to create a platform that simplifies this process, allowing students to showcase their tutoring capabilities more effectively and making it easier for users to connect with suitable tutors.
 
 ## Table of Contents (Optional)
 
