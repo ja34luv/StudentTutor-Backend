@@ -89,6 +89,8 @@ The UI/UX was inspired by [Indeed.com](https://ca.indeed.com/) and [LinkedIn](ht
 
 Backend practices were learned and implemented following this [tutorial](https://www.udemy.com/course/the-complete-nodejs-developer-course-2/).
 
+<a href="https://www.flaticon.com/free-animated-icons/pencil" title="pencil animated icons">Pencil animated icons created by Freepik - Flaticon</a>
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](./LICENSE.md) file for details
