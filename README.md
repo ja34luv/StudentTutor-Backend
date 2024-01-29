@@ -8,23 +8,29 @@ Welcome to the **backend code** repository of GrabPencil.
 
 ## Description
 
-GrabPencil is a **tutor matching website tailored for students** at [Simon Fraser University](https://en.wikipedia.org/wiki/Simon_Fraser_University) and the [University of British Columbia](https://en.wikipedia.org/wiki/University_of_British_Columbia). Users can easily create **tutor profiles** similar to LinkedIn, allowing others to view their information at a glance. The platform includes a built-in **chat system** for quick and easy communication, enabling users to freely connect with tutors that match their preferences. Additionally, GrabPencil encompasses Indeed-like **filter and search features** for enhanced user experience.
+GrabPencil is a **tutor matching website tailored for students** at [Simon Fraser University](https://en.wikipedia.org/wiki/Simon_Fraser_University) and the [University of British Columbia](https://en.wikipedia.org/wiki/University_of_British_Columbia). Students can easily create **tutor profiles** similar to LinkedIn, allowing others to view their information at a glance. The platform includes a built-in **chat system** for quick and easy communication, enabling users to freely connect with tutors that match their preferences. Additionally, GrabPencil encompasses Indeed-like **filter and search features** for enhanced user experience.
 
 -   What was your motivation? <br/> <br/>
     My motivation stemmed from observing my peers, friends, and even my girlfriend seeking tutoring opportunities. While existing tutor matching websites were available, they were saturated with a diverse range of tutors, making it challenging for students to stand out and for users to filter through student tutors. I aimed to create a platform that simplifies this process, allowing students to showcase their tutoring capabilities more effectively and making it easier for users to connect with suitable tutors.
 
-## Table of Contents (Optional)
+## Table of Contents
 
 If your README is long, add a table of contents to make it easy for users to find what they need.
 
--   [Installation](#installation)
+-   [Outline](#Outline)
 -   [Usage](#usage)
 -   [Credits](#credits)
 -   [License](#license)
 
-## Installation
+## Outline
 
-What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running.
+-   Written in [JavaScript](https://en.wikipedia.org/wiki/JavaScript).
+-   Frontend developed using [React](<https://en.wikipedia.org/wiki/React_(software)>) with [Bootstrap](<https://en.wikipedia.org/wiki/Bootstrap_(front-end_framework)>).
+-   Backend developed using [Node.js](https://en.wikipedia.org/wiki/Node.js) and [Express.js](https://en.wikipedia.org/wiki/Express.js).
+-   Database built using [MongoDB](https://en.wikipedia.org/wiki/MongoDB) with [Mongoose](https://mongoosejs.com/).
+-   Real-time connection with [Socket.IO](https://en.wikipedia.org/wiki/Socket.IO).
+-   [JWT](https://en.wikipedia.org/wiki/JSON_Web_Token)-based user authentication with password hashing using [bcrypt](https://en.wikipedia.org/wiki/Bcrypt).
+-   Backend API endpoint testing using [Jest](https://jestjs.io/) and [Supertest](https://www.npmjs.com/package/supertest).
 
 ## Usage
 
