@@ -1,4 +1,7 @@
-# GrabPencil
+# GrabPencil ✏️
+
+Welcome to the backend code repository of GrabPencil's tutor matching website!
+If you're interested in the frontend code, you can find it [here](https://github.com/jayhonglee/GrabPencil-Frontend).
 
 ![Demo_Gif](./assets/animations/GrabPencil_Demo-ezgif.com-video-to-gif-converter.gif)
 
