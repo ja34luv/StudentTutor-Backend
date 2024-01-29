@@ -38,9 +38,31 @@ Simply follow the link below and explore the platform!
 
 ## Features
 
--   [ ] Task 1
--   [x] Task 2 (completed)
--   [ ] Task 3
+-   [x] Account
+
+    -   [x] Login / Logout
+    -   [x] Sign up
+    -   [x] Add profile picture
+    -   [x] Delete account
+    -   [x] Edit account information
+
+-   [x] Tutor profile
+
+    -   [x] Create tutor profile
+    -   [x] Edit tutor profile
+    -   [x] Delete tutor profile
+
+-   [x] User
+
+    -   [x] Search profiles
+    -   [x] Filter profiles
+    -   [x] Real-time chatting
+    -   [x] Real-time online user status
+
+-   [] Design
+    -   [x] Pagination
+    -   [] Update about page
+    -   [] Responsive design
 
 ## Credits
 
