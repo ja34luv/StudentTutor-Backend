@@ -26,16 +26,24 @@ GrabPencil is a **tutor matching website tailored for students** at [Simon Frase
 
 ## Table of Contents
 
--   [GrabPencil](#GrabPencil)
--   [Description](#Description)
--   [Table of Contents](#Table_of_Contents)
--   [Outline](#Outline)
--   [Usage](#Usage)
--   [Features](#Features)
--   [Credits](#Credits)
--   [License](#License)
--   [Badges](#Badges)
--   [How to Contribute](#How_to_Contribute)
+-   [GrabPencil](#grabpencil)
+-   [Description](#description)
+-   [Table of Contents](#table-of-contents)
+-   [Outline](#outline)
+-   [Usage](#usage)
+-   [Features](#features)
+-   [Results and Discussion](#results-and-discussion)
+-   [Learning Experience](#learning-experience)
+    -   [Frontend-Backend Communication](#frontend-backend-communication)
+    -   [Database Integration](#database-integration)
+-   [Challenges Faced](#challenges-faced)
+    -   [Marketing Struggles](#marketing-struggles)
+-   [Lesson Learned](#lesson-learned)
+-   [Conclusion](#conclusion)
+-   [Credits](#credits)
+-   [License](#license)
+-   [Badges](#badges)
+-   [How to Contribute](#how-to-contribute)
 
 ## Outline
 
