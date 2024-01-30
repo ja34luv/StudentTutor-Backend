@@ -81,6 +81,32 @@ Simply follow the link below and explore the platform!
     -   [ ] Update about page
     -   [ ] Responsive design
 
+## Results and Discussion
+
+### Learning Experience
+
+#### Frontend-Backend Communication
+
+Developing GrabPencil provided a valuable learning experience in understanding how frontend and backend components communicate via RESTful APIs. The clear separation of concerns between the frontend (React) and the backend (Node.js with Express) allowed for a modular and scalable architecture. Learning to design and implement RESTful APIs facilitated efficient data transfer and communication between the client and server.
+
+#### Database Integration
+
+Integrating MongoDB as the database backend further enhanced my understanding of data storage and retrieval in the context of a web application. The flexibility of MongoDB's document-oriented structure proved beneficial in managing various data types associated with user profiles, tutoring sessions, and other relevant information.
+
+### Challenges Faced
+
+#### Marketing Struggles
+
+While the technical aspects of the project were successfully implemented, one of the most significant challenges faced was in the realm of marketing. Despite efforts such as posting on Reddit to generate awareness and interest, acquiring users proved to be a formidable task.
+
+### Lesson Learned
+
+The realization that effective marketing is essential for the success of a tech project cannot be understated. It highlighted the importance of not only developing a functional and user-friendly application but also actively promoting it to the target audience.
+
+### Conclusion
+
+The GrabPencil project provided a comprehensive learning experience in full-stack development, emphasizing the intricacies of frontend-backend communication and database integration within the MERN stack. The challenges faced in marketing underscored the importance of a well-rounded approach, where technical proficiency must be complemented by strategic promotional efforts.
+
 ## Credits
 
 -   This was a solo, full-stack project.
