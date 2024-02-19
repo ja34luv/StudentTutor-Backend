@@ -11,7 +11,7 @@
 
 # GrabPencil ✏️
 
-Welcome to the **backend code** repository of [GrabPencil](https://www.grabpencil.com/).
+Welcome to the **backend code** repository of [GrabPencil](https://www.grabpencil.com).
 
 -   If you're interested in the frontend code, you can find it [here](https://github.com/jayhonglee/GrabPencil-Frontend).
 
